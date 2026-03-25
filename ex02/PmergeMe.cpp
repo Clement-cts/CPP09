@@ -286,11 +286,12 @@ void PmergeMe::run(int ac, char **av) {
     resetComparisonCount();
     double vectorElapsedTime;
     std::vector<int> sortedVector = sortVector(vectorElapsedTime);
+    size_t vectorComp = getComparisonCount();
 
     resetComparisonCount();
     double dequeElapsedTime;
     std::deque<int> sortedDeque = sortDeque(dequeElapsedTime);
-    (void)sortedDeque;
+    size_t dequeComp = getComparisonCount();
 
     printSequence("After: ", sortedVector);
 
@@ -298,6 +299,9 @@ void PmergeMe::run(int ac, char **av) {
                 << " elements with std::vector : " << vectorElapsedTime << " us" << std::endl;
     std::cout << "Time to process a range of " << _deque.size()
                 << " elements with std::deque : " << dequeElapsedTime << " us" << std::endl;
+
+    std::cout << "comp: " << vectorComp << std::endl;
+    std::cout << "comp deque: " << dequeComp << std::endl;
 }
 
 template void PmergeMe::fordJohnsonSort<std::vector<int> >(std::vector<int>& sequence);
