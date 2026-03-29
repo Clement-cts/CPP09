@@ -164,8 +164,8 @@ void PmergeMe::fordJohnsonSort(Container& sequence) {
         return;
     }
 
-    bool hasStraggler = (size % 2 == 1);
-    int straggler = hasStraggler ? sequence[size - 1] : 0;
+    bool hasUnpairElement = (size % 2 == 1);
+    int unpairElement = hasUnpairElement ? sequence[size - 1] : 0;
     size_t numberOfPairs = size / 2;
 
     std::vector< std::pair<int, int> > valuePairs;
@@ -246,9 +246,9 @@ void PmergeMe::fordJohnsonSort(Container& sequence) {
             }
         }
     }
-    if (hasStraggler) {
-        size_t insertIndex = findInsertionIndex(sortedChain, straggler, 0, sortedChain.size());
-        sortedChain.insert(sortedChain.begin() + insertIndex, straggler);
+    if (hasUnpairElement) {
+        size_t insertIndex = findInsertionIndex(sortedChain, unpairElement, 0, sortedChain.size());
+        sortedChain.insert(sortedChain.begin() + insertIndex, unpairElement);
     }
     
     sequence = sortedChain;
@@ -294,6 +294,9 @@ void PmergeMe::run(int ac, char **av) {
     size_t dequeComp = getComparisonCount();
 
     printSequence("After: ", sortedVector);
+
+    std::vector<int> sortedDequeVector(sortedDeque.begin(), sortedDeque.end());
+    printSequence("After: (deque): ", sortedDequeVector);
 
     std::cout << "Time to process a range of " << _vector.size()
                 << " elements with std::vector : " << vectorElapsedTime << " us" << std::endl;
